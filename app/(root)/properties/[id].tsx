@@ -179,7 +179,7 @@ const Property = () => {
 
                             //user review text
                             <Text className ="text-base font-rubik mt-2.5 text-black-200" style={{lineHeight: 24 }} >
-                                I really like the interior design. Looks like I'll feel at home in this place 😍
+                                I really think like the interior design. Looks like I'll feel at home in this place 😍
                             </Text>
 
                             //like
