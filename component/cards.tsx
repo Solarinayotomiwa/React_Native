@@ -37,7 +37,7 @@ export const FeaturedCard = ({item: {image, rating, name, address, price }, onPr
                 }}
             />
 
-            //for the star
+            {/*for the star*/}
             <View className="flex flex-row absolute items-center"
             style={{
                 paddingHorizontal: 12,
@@ -55,16 +55,14 @@ export const FeaturedCard = ({item: {image, rating, name, address, price }, onPr
                 <Text className="text-xs font-rubik-medium text-primary-100" style={{ marginLeft: 4, }} >{rating}</Text>
             </View>
 
-            //text on card
+            {/*text on card*/}
             <View className="flex flex-col items-start absolute" style={{
                 bottom: 20,
                 width: "100%",
                 paddingHorizontal: 16
             }}>
                 <Text className="text-white text-base font-rubik-bold" numberOfLines={1} >{name}</Text>
-                <Text className="text-white text-sm font-rubik-regular" numberOfLines={1} style={{
-                    marginVertical: 8,
-                }}>{address}</Text>
+                <Text className="text-white text-sm font-rubik-regular" numberOfLines={1} style={{marginVertical: 8,}}>{address}</Text>
 
                 <View className="flex flex-row justify-between items-center w-full" >
 
@@ -101,15 +99,15 @@ export const Card = ({item: {image, rating, name, address, price }, onPress}: Pr
                               borderColor: "#F1F1F1",
                               borderWidth: 1
         }}>
-            //Image component
+            {/*image component*/}
         <View>
-            //image
+            {/*image*/}
             <Image source={{uri: image}} style={{
                 width: "100%",
                 height: 154,
                 borderRadius: 10,
             }}/>
-            //star
+            {/*star*/}
             <View className="flex flex-row absolute items-center"
                   style={{
                       paddingHorizontal: 6,
@@ -127,7 +125,7 @@ export const Card = ({item: {image, rating, name, address, price }, onPress}: Pr
                 <Text className=" font-rubik-medium text-primary-100" style={{ marginLeft: 2, fontSize: 10 }} >{rating}</Text>
             </View>
         </View>
-            //text
+            {/*star*/}
             <View className="items-start" style={{ width: "100%", marginTop: 12 }}>
                 <Text className="text-primary-300 text-base font-rubik-medium" >{name}</Text>
                 <Text numberOfLines={1} className="text-primary-300 text-sm font-rubik-regular" style={{

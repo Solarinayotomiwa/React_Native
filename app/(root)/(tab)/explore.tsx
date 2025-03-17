@@ -40,7 +40,7 @@ export default function Explore() {
     return (
         <SafeAreaView className=" h-full" style={{ backgroundColor: "#FCFCFC" }}>
 
-            //Recommedation list
+            {/*Recommendation section*/}
             <FlatList
                 data={properties}
                 renderItem={({item}) => <Card item = {item} onPress={() => handleCardPress(item.$id)}/>}
@@ -58,7 +58,7 @@ export default function Explore() {
 
                 <View className="px-5">
 
-                    //Top Nav
+                    {/*Top Nav*/}
                     <View className= "flex flex-row items-center justify-between mt-2">
 
                         <TouchableOpacity onPress={() => router.back()} className= " flex flex-row justify-center items-center bg-primary-200 size-12 rounded-full" >
@@ -73,12 +73,12 @@ export default function Explore() {
 
                     </View>
 
-                    //search component
+                    {/*search component*/}
                     <Search/>
 
-                    //text & filters
+                    {/*Text & filters*/}
                     <View className="mt-2">
-                        //filters
+                        {/*filters*/}
                         <Filters />
                         <Text className=" mt-5 text-black-300 text-xl font-rubik-medium"> Found {properties?.length} Properties </Text>
                     </View>

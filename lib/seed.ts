@@ -1,5 +1,6 @@
 import { ID } from "react-native-appwrite";
 import { databases, config } from "./appwrite";
+import { nanoid } from "nanoid";
 import {
     agentImages,
     galleryImages,
@@ -47,14 +48,11 @@ function getRandomSubset<T>(
         );
     }
 
-    // Generate a random size for the subset within the range [minItems, maxItems]
     const subsetSize =
         Math.floor(Math.random() * (maxItems - minItems + 1)) + minItems;
 
-    // Create a copy of the array to avoid modifying the original
     const arrayCopy = [...array];
 
-    // Shuffle the array copy using Fisher-Yates algorithm
     for (let i = arrayCopy.length - 1; i > 0; i--) {
         const randomIndex = Math.floor(Math.random() * (i + 1));
         [arrayCopy[i], arrayCopy[randomIndex]] = [
@@ -63,13 +61,18 @@ function getRandomSubset<T>(
         ];
     }
 
-    // Return the first `subsetSize` elements of the shuffled array
     return arrayCopy.slice(0, subsetSize);
+}
+
+function generateSafeID() {
+    let id = ID.unique();
+    if (id.startsWith("_")) id = id.substring(1); // Remove leading underscore
+    return id.substring(0, 36); // Ensure max 36 characters
 }
 
 async function seed() {
     try {
-        // Clear existing data from all collections
+        {/* Clear existing data from all collections */}
         for (const key in COLLECTIONS) {
             const collectionId = COLLECTIONS[key as keyof typeof COLLECTIONS];
             const documents = await databases.listDocuments(
@@ -87,13 +90,13 @@ async function seed() {
 
         console.log("Cleared all existing data.");
 
-        // Seed Agents
+        {/* Seed Agents */}
         const agents = [];
         for (let i = 1; i <= 5; i++) {
             const agent = await databases.createDocument(
                 config.databaseId!,
                 COLLECTIONS.AGENT!,
-                ID.unique(),
+                generateSafeID(),
                 {
                     name: `Agent ${i}`,
                     email: `agent${i}@example.com`,
@@ -104,13 +107,13 @@ async function seed() {
         }
         console.log(`Seeded ${agents.length} agents.`);
 
-        // Seed Reviews
+        {/* Seed Reviews */}
         const reviews = [];
         for (let i = 1; i <= 20; i++) {
             const review = await databases.createDocument(
                 config.databaseId!,
                 COLLECTIONS.REVIEWS!,
-                ID.unique(),
+                generateSafeID(),
                 {
                     name: `Reviewer ${i}`,
                     avatar: reviewImages[Math.floor(Math.random() * reviewImages.length)],
@@ -122,13 +125,13 @@ async function seed() {
         }
         console.log(`Seeded ${reviews.length} reviews.`);
 
-        // Seed Galleries
+        {/* Seed Galleries */}
         const galleries = [];
         for (const image of galleryImages) {
             const gallery = await databases.createDocument(
                 config.databaseId!,
                 COLLECTIONS.GALLERY!,
-                ID.unique(),
+                generateSafeID(),
                 { image }
             );
             galleries.push(gallery);
@@ -136,7 +139,7 @@ async function seed() {
 
         console.log(`Seeded ${galleries.length} galleries.`);
 
-        // Seed Properties
+        {/* Seed Properties */}
         for (let i = 1; i <= 20; i++) {
             const assignedAgent = agents[Math.floor(Math.random() * agents.length)];
 
@@ -157,7 +160,7 @@ async function seed() {
             const property = await databases.createDocument(
                 config.databaseId!,
                 COLLECTIONS.PROPERTY!,
-                ID.unique(),
+                generateSafeID(),
                 {
                     name: `Property ${i}`,
                     type: propertyTypes[Math.floor(Math.random() * propertyTypes.length)],

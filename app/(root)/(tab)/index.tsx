@@ -45,7 +45,7 @@ export default function Index() {
     return (
         <SafeAreaView className=" h-full" style={{ backgroundColor: "#FCFCFC" }}>
 
-            //Recommedation list
+            {/*Recommendation list*/}
             <FlatList
             data={properties}
             renderItem={({item}) => <Card item = {item} onPress={() => handleCardPress(item.$id)}/>}
@@ -62,7 +62,7 @@ export default function Index() {
             ListHeaderComponent={
 
                 <View className="px-5">
-                    // Top NAV BAR
+                    {/*top nav bar*/}
                     <View className="flex flex-row items-center justify-between mt-5">
                         <View className="flex flex-row items-center">
                             <Image source={{uri:user?.avatar}} className="size-12 rounded-full" />
@@ -73,9 +73,9 @@ export default function Index() {
                         </View>
                         <Image source={icons.bell} className="size-6"/>
                     </View>
-                    //SEARCH BAR
+                    {/*search bar*/}
                     <Search />
-                    //FEATURED SECTION
+                    {/*featured section*/}
                     <View className="mt-5">
                         <View className="flex flex-row items-center justify-between">
                             <Text className="font-rubik-medium text-xl text-black-300">Featured</Text>
@@ -88,7 +88,6 @@ export default function Index() {
                             <ActivityIndicator size ="large" className="text-primary-100" /> : !latestProperties || latestProperties.length === 0
                             ? <NoResults /> : (
 
-                        //Featured list
                         <FlatList
                             data={latestProperties}
                             renderItem={({item}) => <FeaturedCard item = {item} onPress={() => handleCardPress(item.$id)}/>}
@@ -101,7 +100,7 @@ export default function Index() {
                                 )}
 
                     </View>
-                    //RECOMMENDATION SECTION
+                    {/*Recommendation section*/}
                     <View className="mt-6">
                         <View className="flex flex-row items-center justify-between">
                             <Text className="font-rubik-medium text-xl text-black-300">Our Recommendation</Text>
@@ -109,7 +108,7 @@ export default function Index() {
                                 <Text className="font-rubik-medium text-base text-primary-100">See All</Text>
                             </TouchableOpacity>
                         </View>
-                        //filters
+                        {/*filters*/}
                         <Filters />
 
                     </View>

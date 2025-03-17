@@ -27,7 +27,7 @@ export const databases = new Databases(client);
 
 export async function login() {
     try {
-        const redirectUri = Linking.createURL("/"); // this is to allow external links (google auth) to load in the app and return back when done
+        const redirectUri = Linking.createURL("/"); {/*this is to allow external links (google auth) to load in the app and return back when done*/}
 
         const response = await account.createOAuth2Token(
             OAuthProvider.Google, redirectUri
@@ -146,3 +146,38 @@ export async function getProperties({ filter, query, limit } : {
 
 
 }
+
+export async function getPropertyByID({ id }: { id: string }){
+    try {
+        if (!id) {
+            throw new Error("Invalid document ID: ID is undefined or empty");
+        }
+
+        console.log(`Fetching property with ID: ${id}`);
+
+        // Validate ID format
+        if (id.length > 36) {
+            throw new Error(`Invalid document ID: ID is too long (${id.length} chars, max 36 allowed).`);
+        }
+        if (!/^[a-zA-Z0-9_]+$/.test(id)) {
+            throw new Error(`Invalid document ID: Contains invalid characters (${id}).`);
+        }
+        if (id.startsWith("_")) {
+            console.warn("Document ID starts with an underscore, removing it...");
+            id = id.replace(/^_/, '');
+        }
+
+        const result = await databases.getDocument(
+            config.databaseId!,
+            config.propertyCollectionId!,
+            id
+        );
+
+        return result;
+    } catch (error) {
+        console.error("Error fetching property:", error);
+        return null;
+    }
+}
+
+
